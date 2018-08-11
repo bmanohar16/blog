@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Evaluation of Recommender Algorithms in Surprise on Yelp Ratings</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/bm-blog/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/bm-blog/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/bm-blog/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Data Science, Machine Learning, Artificial Intelligence, Data Visualization" />
+    <link rel="shortcut icon" href="http://localhost:4000/bm-blog/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/bm-blog/recsys-evaluation-in-surprise" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="Gt0QHt0FCl0IF_ICYla5M14mh_HNttMGz0BSKD3I3vE" />
+    
+     
+
+    <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="bmanohar's blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Evaluation of Recommender Algorithms in Surprise on Yelp Ratings" />
+    <meta property="og:description" content="Introduction For evaluation, I mainly used review.csv file, it has totally 1.4 million ratings given by users for business categories. It had a total of around 436 unique business categories which are restaurant cuisines. The data is clean and ready for use. Code Import Libraries # Imports import pandas as" />
+    <meta property="og:url" content="http://localhost:4000/bm-blog/recsys-evaluation-in-surprise" />
+    <meta property="og:image" content="http://localhost:4000/bm-blog/assets/images/eval-recsys-surprise/receval-cover.png" />
+    <meta property="article:publisher" content="https://www.twitter.com/bmanohar16_" />
+    <meta property="article:author" content="https://www.twitter.com/bmanohar16_" />
+    <meta property="article:published_time" content="2018-07-09T05:00:00-05:00" />
+    <meta property="article:modified_time" content="2018-07-09T05:00:00-05:00" />
+    <meta property="article:tag" content="Ml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Evaluation of Recommender Algorithms in Surprise on Yelp Ratings" />
+    <meta name="twitter:description" content="Introduction For evaluation, I mainly used review.csv file, it has totally 1.4 million ratings given by users for business categories. It had a total of around 436 unique business categories which are restaurant cuisines. The data is clean and ready for use. Code Import Libraries # Imports import pandas as" />
+    <meta name="twitter:url" content="http://localhost:4000/bm-blog/" />
+    <meta name="twitter:image" content="http://localhost:4000/bm-blog/assets/images/eval-recsys-surprise/receval-cover.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="bmanohar's blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Ml" />
+    <meta name="twitter:site" content="@bmanohar16_" />
+    <meta name="twitter:creator" content="@bmanohar16_" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "bmanohar's blog",
+        "logo": "http://localhost:4000/bm-blog/assets/images/blog-icon.png"
+    },
+    "url": "http://localhost:4000/bm-blog/recsys-evaluation-in-surprise",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/bm-blog/assets/images/eval-recsys-surprise/receval-cover.png",
+        "width": 1000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/bm-blog/recsys-evaluation-in-surprise"
+    },
+    "description": "Introduction For evaluation, I mainly used review.csv file, it has totally 1.4 million ratings given by users for business categories. It had a total of around 436 unique business categories which are restaurant cuisines. The data is clean and ready for use. Code Import Libraries # Imports import pandas as"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Evaluation of Recommender Algorithms in Surprise on Yelp Ratings" href="/bm-blog/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+            <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/bm-blog/"><img src="/bm-blog/assets/images/blog-icon.png" alt="bmanohar's blog" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/bm-blog/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/bm-blog/about/">About</a></li>
+    <li class="nav-ml" role="menuitem"><a href="/bm-blog/tag/ml/">ML</a></li>
+    <li class="nav-ai" role="menuitem"><a href="/bm-blog/tag/ai/">AI</a></li>
+    <li class="nav-python" role="menuitem"><a href="/bm-blog/tag/python/">Python</a></li>
+    <li class="nav-r" role="menuitem"><a href="/bm-blog/tag/r/">R</a></li>
+    <li class="nav-data-visualization" role="menuitem"><a href="/bm-blog/tag/data-visualization/">Data Visualization</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+                <a class="social-link social-link-tw" href="https://github.com/bmanohar16" target="_blank" rel="noopener"><svg aria-labelledby="simpleicons-github-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon">GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/bmanohar16_" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+            <a class="social-link social-link-rss" href="https://feedly.com/i/subscription/feed/http://localhost:4000/bm-blog/feed.xml" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+</a>
+            
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-ml ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 9 July 2018"> 9 July 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/bm-blog/tag/ml/'>ML</a>,
+                            
+                        
+                            
+                               <a href='/bm-blog/tag/python/'>PYTHON</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Evaluation of Recommender Algorithms in Surprise on Yelp Ratings</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/bm-blog/assets/images/eval-recsys-surprise/receval-cover.png)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <h4 id="introduction">Introduction</h4>
+
+<p>For evaluation, I mainly used review.csv file, it has totally 1.4 million ratings given by users for business categories. It had a total of around 436 unique business categories which are restaurant cuisines. The data is clean and ready for use.</p>
+
+<h2 id="code">Code</h2>
+
+<h4 id="import-libraries">Import Libraries</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">KNNBasic</span><span class="p">,</span> <span class="n">KNNWithMeans</span><span class="p">,</span> <span class="n">KNNWithZScore</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SVD</span><span class="p">,</span> <span class="n">SVDpp</span><span class="p">,</span> <span class="n">NMF</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SlopeOne</span><span class="p">,</span> <span class="n">CoClustering</span>
+
+</code></pre></div></div>
+
+<h4 id="load-review-ratings-data">Load Review Ratings Data</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Load review ratings and verify data</span>
+<span class="n">reviews</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'./yelp-core5/review.csv'</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s">'userID'</span><span class="p">,</span> <span class="s">'businessID'</span><span class="p">,</span> <span class="s">'rating'</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Rows:'</span><span class="p">,</span> <span class="n">reviews</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">'; Columns:'</span><span class="p">,</span> <span class="n">reviews</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+<span class="n">reviews</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rows: 141454 ; Columns: 3 
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userID</th>
+      <th>businessID</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10000</td>
+      <td>0</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>10001</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10002</td>
+      <td>2</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10003</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10004</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4 id="basic-stats-of-review-ratings">Basic Stats of Review Ratings</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">reviews</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userID</th>
+      <th>businessID</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>141454.000000</td>
+      <td>141454.000000</td>
+      <td>141454.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>12568.830164</td>
+      <td>1564.806538</td>
+      <td>3.778097</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>2189.783991</td>
+      <td>1314.985956</td>
+      <td>1.116191</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>10000.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>10704.000000</td>
+      <td>467.000000</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>11902.000000</td>
+      <td>1185.000000</td>
+      <td>4.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>14067.000000</td>
+      <td>2393.000000</td>
+      <td>5.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>18042.000000</td>
+      <td>5198.000000</td>
+      <td>5.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4 id="unique-counts">Unique Counts</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'No. of Unique Users    :'</span><span class="p">,</span> <span class="n">reviews</span><span class="o">.</span><span class="n">userID</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'No. of Unique Business :'</span><span class="p">,</span> <span class="n">reviews</span><span class="o">.</span><span class="n">businessID</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'No. of Unique Ratings  :'</span><span class="p">,</span> <span class="n">reviews</span><span class="o">.</span><span class="n">rating</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No. of Unique Users    : 8043
+No. of Unique Business : 5199
+No. of Unique Ratings  : 5
+</code></pre></div></div>
+
+<h4 id="overall-count-of-ratings-given-by-users">Overall Count of Ratings given by Users</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rts_gp</span> <span class="o">=</span> <span class="n">reviews</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">'rating'</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">'userID'</span><span class="p">:</span> <span class="s">'count'</span><span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">rts_gp</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Rating'</span><span class="p">,</span> <span class="s">'Count'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">rts_gp</span><span class="o">.</span><span class="n">Rating</span><span class="p">,</span> <span class="n">rts_gp</span><span class="o">.</span><span class="n">Count</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'royalblue'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Overall Count of Ratings'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Count'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Rating'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s">'dotted'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="assets/images/eval-recsys-surprise/output_11_0.png" alt="png" /></p>
+
+<h4 id="reload-data-with-1-5-rating-scale">Reload Data with 1-5 Rating Scale</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Set Rating Scale</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c"># Load data with rating scale</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">reviews</span><span class="p">[[</span><span class="s">'userID'</span><span class="p">,</span> <span class="s">'businessID'</span><span class="p">,</span> <span class="s">'rating'</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="evaluation-with-various-algorithms-available-in-surprise">Evaluation with various Algorithms available in Surprise</h3>
+
+<p><strong>k-NN Based Algorithms</strong></p>
+<blockquote>
+  <p>KNNBasic, KNNWithMeans and KNNWithZScore</p>
+</blockquote>
+
+<p><strong>Matrix Factorization Based Algorithms</strong></p>
+<blockquote>
+  <p>SVD, SVDpp and NMF</p>
+</blockquote>
+
+<p><strong>Other Collaborative Filtering Algorithms</strong></p>
+<blockquote>
+  <p>SlopeOne</p>
+</blockquote>
+
+<blockquote>
+  <p>CoClustering</p>
+</blockquote>
+
+<p><strong>Cross Validation:</strong> 5-Fold</p>
+
+<p><strong>Optimization Metric:</strong> RMSE, MAE</p>
+
+<p><strong>Multithreading:</strong> 5 Threads</p>
+
+<h4 id="k-nn-based-algorithms">k-NN Based Algorithms</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">knnbasic_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">KNNBasic</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">knnmeans_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">KNNWithMeans</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">knnz_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">KNNWithZScore</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+</code></pre></div></div>
+
+<h4 id="matrix-factorization-based-algorithms">Matrix Factorization Based Algorithms</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">svd_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">SVD</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">svdpp_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">SVDpp</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">nmf_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">NMF</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="other-collaborative-filtering-algorithms">Other Collaborative Filtering Algorithms</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">slope_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">SlopeOne</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">coclus_cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">CoClustering</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="comparison-of-all-algorithms-on-rmse-and-mae">Comparison of all algorithms on RMSE and MAE</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'Algorithm</span><span class="se">\t</span><span class="s"> RMSE</span><span class="se">\t\t</span><span class="s"> MAE'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'KNN Basic'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">knnbasic_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">knnbasic_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'KNN Means'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">knnmeans_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">knnmeans_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'KNN ZScore'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">knnz_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">knnz_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'SVD'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svd_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svd_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'SVDpp'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svdpp_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svdpp_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'NMF'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">nmf_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">nmf_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'SlopeOne'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">slope_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">slope_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'CoClustering'</span><span class="p">,</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">coclus_cv</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">coclus_cv</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algorithm	 RMSE		 MAE
+
+KNN Basic 	 1.0955 	 0.8451
+KNN Means 	 1.0858 	 0.8314
+KNN ZScore 	 1.0942 	 0.8305
+
+SVD 		 1.0227 	 0.7996
+SVDpp 		 1.0223 	 0.7978
+NMF 		 1.1244 	 0.8748
+
+SlopeOne 	 1.1137 	 0.8535
+CoClustering 	 1.0855 	 0.8352
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_algo</span> <span class="o">=</span> <span class="p">[</span><span class="s">'KNN Basic'</span><span class="p">,</span> <span class="s">'KNN Means'</span><span class="p">,</span> <span class="s">'KNN ZScore'</span><span class="p">,</span> <span class="s">'SVD'</span><span class="p">,</span> <span class="s">'SVDpp'</span><span class="p">,</span> <span class="s">'NMF'</span><span class="p">,</span> <span class="s">'SlopeOne'</span><span class="p">,</span> <span class="s">'CoClustering'</span><span class="p">]</span>
+<span class="n">all_algos_cv</span> <span class="o">=</span> <span class="p">[</span><span class="n">knnbasic_cv</span><span class="p">,</span> <span class="n">knnmeans_cv</span><span class="p">,</span> <span class="n">knnz_cv</span><span class="p">,</span> <span class="n">svd_cv</span><span class="p">,</span> <span class="n">svdpp_cv</span><span class="p">,</span> <span class="n">nmf_cv</span><span class="p">,</span> <span class="n">slope_cv</span><span class="p">,</span> <span class="n">coclus_cv</span><span class="p">]</span>
+
+<span class="n">rmse_cv</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">'test_rmse'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">all_algos_cv</span><span class="p">]</span>
+<span class="n">mae_cv</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s">'test_mae'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">all_algos_cv</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Comparison of Algorithms on RMSE'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_algo</span><span class="p">,</span> <span class="n">rmse_cv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'RMSE'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'darkgreen'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Algorithms'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'RMSE Value'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s">'dashed'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Comparison of Algorithms on MAE'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_algo</span><span class="p">,</span> <span class="n">mae_cv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'MAE'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'navy'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Algorithms'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'MAE Value'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s">'dashed'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="assets/images/eval-recsys-surprise/output_23_0.png" alt="png" /></p>
+
+<h3 id="evaluation-results">Evaluation Results</h3>
+
+<ul>
+  <li>Winner: <strong>SVDpp (best RMSE and MAE)</strong></li>
+  <li>2nd place: SVD</li>
+  <li>3rd place: KNN Means</li>
+</ul>
+
+<h3 id="group-winners">Group Winners</h3>
+
+<p>k-NN</p>
+<ul>
+  <li>KNN Means</li>
+</ul>
+
+<p>Matrix Factorization</p>
+<ul>
+  <li>SVDpp</li>
+</ul>
+
+<p>Others</p>
+<ul>
+  <li>CoClustering</li>
+</ul>
+
+<h3 id="perform-gridsearch-cv-on-top-three-algorithms---svdpp-svd-and-knn">Perform GridSearch CV on top three algorithms - SVDpp, SVD and KNN</h3>
+
+<p>Let’s try tweaking parameters on SVDpp, SVD using GridSearchCV</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Parameter space</span>
+<span class="n">svd_param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s">'n_epochs'</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span> 
+                  <span class="s">'lr_all'</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.007</span><span class="p">,</span> <span class="mf">0.009</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span>
+                  <span class="s">'reg_all'</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]}</span>
+
+<span class="n">svdpp_gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVDpp</span><span class="p">,</span> <span class="n">svd_param_grid</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">,</span> <span class="s">'mae'</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">svdpp_gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">svd_gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVD</span><span class="p">,</span> <span class="n">svd_param_grid</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">,</span> <span class="s">'mae'</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">svd_gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'SVDpp - RMSE:'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svdpp_gs</span><span class="o">.</span><span class="n">best_score</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'; MAE:'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svdpp_gs</span><span class="o">.</span><span class="n">best_score</span><span class="p">[</span><span class="s">'mae'</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'SVD   - RMSE:'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svd_gs</span><span class="o">.</span><span class="n">best_score</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="s">'; MAE:'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">svd_gs</span><span class="o">.</span><span class="n">best_score</span><span class="p">[</span><span class="s">'mae'</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SVDpp - RMSE: 1.0156 ; MAE: 0.7945
+SVD   - RMSE: 1.0161 ; MAE: 0.7947
+</code></pre></div></div>
+
+<blockquote>
+  <p>After tuning the parameters, we have bet the best results from cross_validate() method of SVD and SVDpp</p>
+</blockquote>
+
+<h4 id="svdpp-best-parameters">SVDpp Best Parameters</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'RMSE ='</span><span class="p">,</span> <span class="n">svdpp_gs</span><span class="o">.</span><span class="n">best_params</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'MAE ='</span><span class="p">,</span> <span class="n">svdpp_gs</span><span class="o">.</span><span class="n">best_params</span><span class="p">[</span><span class="s">'mae'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RMSE = {'n_epochs': 25, 'lr_all': 0.007, 'reg_all': 0.4}
+MAE = {'n_epochs': 25, 'lr_all': 0.01, 'reg_all': 0.4}
+</code></pre></div></div>
+
+<h4 id="svd-best-parameters">SVD Best Parameters</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'RMSE ='</span><span class="p">,</span> <span class="n">svd_gs</span><span class="o">.</span><span class="n">best_params</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'MAE ='</span><span class="p">,</span> <span class="n">svd_gs</span><span class="o">.</span><span class="n">best_params</span><span class="p">[</span><span class="s">'mae'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RMSE = {'n_epochs': 20, 'lr_all': 0.009, 'reg_all': 0.4}
+MAE = {'n_epochs': 25, 'lr_all': 0.01, 'reg_all': 0.4}
+</code></pre></div></div>
+
+<h3 id="tweak-parameters-on-knn-using-gridsearchcv">Tweak parameters on KNN using GridSearchCV</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s">'k'</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]}</span>
+
+<span class="n">knnbasic_gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">KNNBasic</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">,</span> <span class="s">'mae'</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">knnbasic_gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">knnmeans_gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">KNNWithMeans</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">,</span> <span class="s">'mae'</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">knnmeans_gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">knnz_gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">KNNWithZScore</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s">'rmse'</span><span class="p">,</span> <span class="s">'mae'</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">knnz_gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+Done computing similarity matrix.
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">knnbasic_gs</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="s">'mean_test_rmse'</span><span class="p">]</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">knnbasic_gs</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="s">'mean_test_mae'</span><span class="p">]</span>
+
+<span class="n">y3</span> <span class="o">=</span> <span class="n">knnmeans_gs</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="s">'mean_test_rmse'</span><span class="p">]</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="n">knnmeans_gs</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="s">'mean_test_mae'</span><span class="p">]</span>
+
+<span class="n">y5</span> <span class="o">=</span> <span class="n">knnz_gs</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="s">'mean_test_rmse'</span><span class="p">]</span>
+<span class="n">y6</span> <span class="o">=</span> <span class="n">knnz_gs</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="s">'mean_test_mae'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'K Neighbors vs RMSE'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'KNNBasic'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'lightcoral'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'KNNWithZScore'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'indianred'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'KNNWithMeans'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'darkred'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'K Neighbor'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'RMSE Value'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s">'dotted'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'K Neighbors vs MAE'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'KNNBasic'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'lightcoral'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'KNNWithMeans'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'indianred'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'KNNWithZScore'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'darkred'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'K Neighbor'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'MAE Value'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s">'dotted'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="assets/images/eval-recsys-surprise/output_36_0.png" alt="png" /></p>
+
+<h3 id="evaluated-models">Evaluated Models:</h3>
+
+<p>kNN Basic, kNN Means, kNN ZScore, SVD, SVDpp, NMF, SlopeOne, CoClustering</p>
+
+<h3 id="final-best-model">Final Best Model:</h3>
+
+<p>SVD++ with parameters =&gt; Number of Epochs = 20, Learning Rate= 0.009, Regularization Term = 0.4</p>
+
+<hr />
+
+<p><b>References:</b></p>
+
+<ol>
+  <li>http://surpriselib.com/</li>
+  <li>http://surprise.readthedocs.io/en/stable/getting_started.html</li>
+</ol>
+
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/bm-blog/assets/images/bala.jpg" alt="bmanohar16" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/bm-blog/author/bmanohar16">bmanohar</a></h4>
+                                
+                                    <p>Balakumaran Manoharan is the author of this blog. He spends his days working on machine learning systems, blog and play badminton.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/bm-blog/author/bmanohar16">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'http://localhost:4000/bm-blog/';
+                            this.page.identifier = 'bmanohar's blog';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://bmanohar16.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/bm-blog/customizing-bar-plots">
+                <div class="post-card-image" style="background-image: url(/bm-blog/assets/images/bar-plot-matplotlib/bar-cover.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/bm-blog/customizing-bar-plots">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Data visualization</span>
+                            
+                        
+                            
+                               <span class="post-card-tags">Python</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Matplotlib</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Customizing Bar Plots in Matplotlib</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Bar charts are good to visualize grouped data values with counts. In this post, we will see how to customize the default plot theme of matplotlib.pyplot to our personal aesthetics and design choices.</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/bm-blog/assets/images/bala.jpg" alt="bmanohar" />
+                        
+                        <span class="post-card-author">
+                            <a href="/bm-blog/author/bmanohar16/">bmanohar</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/bm-blog/">
+            
+                <img src="/bm-blog/assets/images/favicon.png" alt="bmanohar's blog icon" />
+            
+            <span>bmanohar's blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Evaluation of Recommender Algorithms in Surprise on Yelp Ratings</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Evaluation+of+Recommender+Algorithms+in+Surprise+on+Yelp+Ratings&amp;url=https://bmanohar16.github.io/bm-blog/recsys-evaluation-in-surprise"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://bmanohar16.github.io/bm-blog/recsys-evaluation-in-surprise"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/bm-blog/">Balakumaran Manoharan</a> &copy; 2018</section>
+                <nav class="site-footer-nav">
+                    <a href="/bm-blog/">Latest Posts</a>
+                    <a href="https://github.com/bmanohar16" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://twitter.com/bmanohar16_" target="_blank" rel="noopener">Twitter</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/bm-blog/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/bm-blog/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-123056660-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

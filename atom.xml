@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Balakumaran Manoharan - Articles</title>
+    <description>Data Science, Machine Learning, Artificial Intelligence, Data Visualization</description>
+    <link>
+    http://localhost:4000</link>
+    
+      
+      <item>
+        <title>Evaluation of Recommender Algorithms in Surprise on Yelp Ratings</title>
+        
+          <description>&lt;h4 id=&quot;introduction&quot;&gt;Introduction&lt;/h4&gt;
+
+</description>
+        
+        <pubDate>Mon, 09 Jul 2018 05:00:00 -0500</pubDate>
+        <link>
+        http://localhost:4000/recsys-evaluation-in-surprise</link>
+        <guid isPermaLink="true">http://localhost:4000/recsys-evaluation-in-surprise</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Customizing Bar Plots in Matplotlib</title>
+        
+          <description>&lt;p&gt;Bar charts are good to visualize grouped data values with counts. In this post, we will see how to customize the default plot theme of matplotlib.pyplot to our personal aesthetics and design choices.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 08 Jul 2018 05:00:00 -0500</pubDate>
+        <link>
+        http://localhost:4000/customizing-bar-plots</link>
+        <guid isPermaLink="true">http://localhost:4000/customizing-bar-plots</guid>
+      </item>
+      
+    
+  </channel>
+</rss>
