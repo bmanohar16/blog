@@ -1,0 +1,20 @@
+ml:
+  name: ml
+  description: Machine Learning
+  cover: assets/images/tags/janko-ferlic-174927-unsplash.jpg
+ai:
+  name: ai
+  description: Artificial Intelligence
+  cover: assets/images/tags/clint-adair-68588-unsplash.jpg
+python:
+  name: python
+  description: Python Programming
+  cover: assets/images/tags/davidcohen-181731-unsplash.jpg
+r:
+  name: r
+  description: R Programming
+  cover: assets/images/tags/markus-spiske-472766-unsplash.jpg
+data-visualization:
+  name: data-visualization
+  description: Stunning Graphical Plots created using Python and R libraries
+  cover: assets/images/tags/rene-bohmer-481562-unsplash.jpg

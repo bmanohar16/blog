@@ -1,0 +1,48 @@
+{
+    "name": "bmanohar's blog",
+    "description": "Data Science, Machine Learning, Artificial Intelligence, Data Visualization",
+    "demo": "https://bmanohar16.github.io/blog/",
+    "version": "2.1.9",
+    "engines": {
+        "ghost": ">=1.2.0"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Balakumaran Manoharan",
+        "email": "manoharan.balakumaran@gmail.com",
+        "url": "https://github.com/bmanohar16/"
+    },
+    "gpm": {
+        "type": "theme",
+        "categories": [
+            "Minimal",
+            "Magazine"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bmanohar16/blog.git"
+    },
+    "bugs": "https://github.com/bmanohar16/blog/issues",
+    "contributors": "https://github.com/bmanohar16/blog/graphs/contributors",
+    "devDependencies": {
+        "autoprefixer": "6.3.6",
+        "cssnano": "3.7.1",
+        "gulp-livereload": "3.8.1",
+        "gulp-nodemon": "^2.2.1",
+        "gulp-postcss": "6.1.1",
+        "gulp-sourcemaps": "1.6.0",
+        "gulp-util": "3.0.7",
+        "gulp-watch": "4.3.8",
+        "gulp-zip": "4.0.0",
+        "postcss-color-function": "2.0.1",
+        "postcss-custom-properties": "5.0.1"
+    },
+    "config": {
+        "posts_per_page": 25
+    },
+    "dependencies": {
+        "gulp": "^4.0.0",
+        "postcss-easy-import": "^3.0.0"
+    }
+}
