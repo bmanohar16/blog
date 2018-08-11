@@ -43,7 +43,7 @@ permalink: /:title
 # Tags' info in `_data/tags_info.yml`
 
 # gems and other configs
-plugins: [jekyll-paginate, jekyll-feed, jekyll-twitter-plugin]
+plugins: [jekyll-paginate, jekyll-feed]
 
 rss: True
 author: bmanohar16

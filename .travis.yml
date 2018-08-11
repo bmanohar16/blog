@@ -17,7 +17,7 @@ script: bundle exec rake site:deploy --quiet #--trace
 # travis encrypt 'GIT_NAME="YOUR_USERNAME" GIT_EMAIL="YOUR_EMAIL" GH_TOKEN=YOUR_TOKEN'
 env:
   global:
-    secure: 9GD-lKs3X32E9SjbsP63Jw
+    secure: 7556f8be332462d8191e92426c162b19ebfa5361
 branches:
   only:
     - master
